@@ -160,7 +160,7 @@ const SearchResult = () => {
     return (
         <div
             style={{
-                backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${backdropPath}${searchedMovie.backdrop_path})`,
+                backgroundImage: `  linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 60%, rgba(0, 0, 0, 0) 100%), url(${backdropPath}${searchedMovie.backdrop_path})`,
             }}
             className="MainBackGround"
         >

@@ -89,7 +89,10 @@
 
 .MainBackGround {
     background-size: contain;
+    /* background-image: linear-gradient(to right, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%); */
 }
+
+
 .close-bttn {
     z-index: 100;
     margin-top: 15px;
@@ -97,7 +100,6 @@
     color: #fff !important;
     border-radius: 0.4em;
     cursor: pointer;
-
     font-weight: 400;
     padding: 4px 9px;
     background: #3a86ff;
