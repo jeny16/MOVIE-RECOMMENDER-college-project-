@@ -1,54 +1,64 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,800&family=Roboto:wght@400;500;700&display=swap");
 .movie-details {
     margin-top: 3%;
-    font-family: "Montserrat", sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .overveiwContent {
     font-size: medium;
 }
 .left-box {
-    color: #fff !important;
+    color: #ffffff !important;
     margin: 15px 0;
     padding: 20px;
-    font-family: "Montserrat", sans-serif;
 }
+
+.topTitle-Movie {
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+}
+
 .casting {
     transition: width 0.5s, height 0.5s;
     text-decoration: none;
+    margin-top: 5px;
 }
+
 .casting a {
     text-decoration: none;
 }
 
 .casting img {
-    height: 50px;
-    width: 50px;
+    height: 60px; 
+    width: 60px;
     margin-right: 10px;
     margin-bottom: 35px;
-    transition: width 0.5s, height 0.5s;
-}
-.topTitle-Movie {
-    font-weight: 700;
+    border-radius: 50%; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease, height 0.3s, width 0.3s; /* Smooth hover effects */
+    object-fit: cover;
 }
 .casting img:hover {
-    height: 80px;
-    width: 80px;
+    transform: scale(1.1); 
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); 
 }
+
 .main-img {
     height: 420px;
-    box-shadow: -4px 4px 5px 0 #000;
+    border: 1px solid black;
 }
 
 .recommendedMovies {
     width: 100%;
-    background-color: #0f1014;
+    background: linear-gradient(to right, #8d2525, #090909, #808080);
     margin-top: 4.5%;
 }
 .RecommendHeading {
     color: #fff;
     font-family: "Montserrat";
-    padding-left: 15px;
+    padding-top: 20px;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .trailer-bttn {
@@ -57,17 +67,29 @@
     color: #fff !important;
     border-radius: 0.4em;
     cursor: pointer;
-
-    font-weight: 400;
-    padding: 4px 9px;
-    background: #3a86ff;
+    padding: 10px 20px; 
+    background: linear-gradient(135deg, #007bff, #3a86ff); 
     font-family: "Montserrat", sans-serif;
-    font-weight: 400;
-    border-color: #3a86ff !important;
-    transition: width 0.2s, height 0.2s;
+    font-weight: 500; 
+    border: none;
+    transition: all 0.3s ease; 
+    letter-spacing: 0.5px; 
+    display: inline-block;
 }
-.overveiwContent {
-    font-size: 5vw;
+
+.trailer-bttn:hover {
+    background: linear-gradient(135deg, #0056d2, #2c6edc); 
+    transform: translateY(-3px); 
+}
+
+.trailer-bttn:focus {
+    outline: none; 
+    box-shadow: 0px 0px 0px 4px rgba(58, 134, 255, 0.3);
+}
+
+.overviewContent {
+    font-size: 16px;
+    text-transform: capitalize;
 }
 
 .youtube-container {
@@ -78,9 +100,6 @@
     top: 0;
     bottom: 0;
 }
-.trailer-bttn:hover {
-    padding: 5px 12px;
-}
 .recommendedGrid {
     display: grid;
     gap: 15px;
@@ -89,27 +108,28 @@
 
 .MainBackGround {
     background-size: contain;
-    /* background-image: linear-gradient(to right, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%); */
 }
 
 
 .close-bttn {
-    z-index: 100;
     margin-top: 15px;
     text-decoration: none !important;
     color: #fff !important;
     border-radius: 0.4em;
     cursor: pointer;
-    font-weight: 400;
-    padding: 4px 9px;
-    background: #3a86ff;
+    padding: 10px 20px; 
+    background: linear-gradient(135deg, #007bff, #3a86ff); 
     font-family: "Montserrat", sans-serif;
-    font-weight: 400;
-    border-color: #3a86ff !important;
-    transition: width 0.2s, height 0.2s;
+    font-weight: 500; 
+    border: none;
+    transition: all 0.3s ease; 
+    letter-spacing: 0.5px; 
+    display: inline-block;
 }
 .close-bttn:hover {
-    padding: 5px 12px;
+    /* padding: 5px 12px; */
+    background: linear-gradient(135deg, #0056d2, #2c6edc); 
+    transform: translateY(-3px); 
 }
 .trailerContainer {
     position: relative;

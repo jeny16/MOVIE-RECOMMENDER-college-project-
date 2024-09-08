@@ -76,11 +76,10 @@ const Home = () => {
             <div className="HomePage">
                 <NavBar isHome={false} />
                 <div className="HomeSearch">
-                    {/*Rendering the searchbar */}
                     <SearchBar movies={list} placeholder="Search for a Movie" />
                 </div>
 
-                <h2 className="genreHeader">SELECT THE GENRE OF MOVIE </h2>
+                <h2 className="genreHeader">SELECT THE GENRE OF MOVIE</h2>
                 <div className="buttonGrid">
                     {homeGenreList.map((genre) => (
                         <div

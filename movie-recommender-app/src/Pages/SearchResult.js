@@ -172,7 +172,7 @@ const SearchResult = () => {
                         ? RenderTrailer()
                         : null /*Rendering the trailer*/
                 }
-                <div className="container .movie-details">
+                <div className="container movie-details">
                     <div className="row ">
                         <div className="col-md-6 left-box col-md-push-6">
                             <h1 className="topTitle-Movie">
@@ -182,7 +182,7 @@ const SearchResult = () => {
                             <p className="overviewContent">
                                 {searchedMovie.overview}
                             </p>
-                            <p>Cast: </p>
+                            <b>CAST: </b>
                             <div className="casting">
                                 {castMembers.map((member) => {
                                     if (member) {
@@ -214,18 +214,18 @@ const SearchResult = () => {
                             </div>
 
                             <div>
-                                <b>Rating{" : "}</b>
+                                <b>RATING{" : "}</b>
                                 {searchedMovie.vote_average}
                                 {"/10 "}
 
                                 <i className="fa-solid fa-star"></i>
                             </div>
                             <div>
-                                <b> Release Date </b>
+                                <b> RELEASE DATE </b>
                                 {" : "} {searchedMovie.release_date}
                             </div>
                             <div>
-                                <b>Genres</b>
+                                <b>GENRE</b>
                                 {" : "}
                                 {currGenre ? displayGenre() : null}
                             </div>
@@ -235,7 +235,7 @@ const SearchResult = () => {
                                     onClick={() => setPlayTrailer(true)}
                                 >
                                     <i className="fa-solid fa-play"></i>
-                                    {" Watch Trailer"}
+                                    {" WATCH TRAILER"}
                                 </button>
                             </div>
                         </div>
@@ -255,7 +255,7 @@ const SearchResult = () => {
                     className="close-bttn"
                     onClick={() => setPlayTrailer(false)}
                 >
-                    Close Trailer
+                    CLOSE TRAILER 
                 </button>
             </div>
 
@@ -263,7 +263,6 @@ const SearchResult = () => {
                 <h2 className=" container RecommendHeading">
                     RECOMMENDED MOVIES
                 </h2>
-                {/*Rendering the recommended movie cards */}
                 <div className="container recommendedGrid">
                     {RenderMovies()}
                 </div>
