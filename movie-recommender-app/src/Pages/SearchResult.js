@@ -6,7 +6,7 @@ import NavBar from "./Components/NavBar";
 import ReactPlayer from "react-player";
 import Footer from "./Components/Footer";
 
-const SearchResult = () => {
+const SearchResult = () => { 
   const params = useParams();
   const apiKey = "api_key=b97316ed479ee4226afefc88d1792909";
   const inputValue = params.id; // retrieving the searched movie name
