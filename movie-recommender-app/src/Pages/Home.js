@@ -18,7 +18,8 @@ const Home = () => {
     setHomeGenreList([]);
     setList([]);
     //getting the list of movies from our flask server for our searchbar
-    fetch("/api/movies").then((Response) =>
+    fetch("/api/movies")
+    .then((Response) =>
       Response.json().then((data) => setList(data.arr))
     );
     // getting the list of all genres
@@ -69,7 +70,7 @@ const Home = () => {
   return (
     <div className="container-fluid">
       <div className="HomePage">
-        <NavBar isHome={false} />
+        <NavBar />
         <div className="HomeSearch">
           <SearchBar movies={list} placeholder="Search for a Movie" />
         </div>

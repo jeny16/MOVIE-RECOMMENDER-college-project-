@@ -20,7 +20,7 @@ const SearchResult = () => {
   const gotCast = (castData) => {
     setCastMembers([]);
 
-    let counter = 5;
+    let counter = 6;
     for (let cast of castData) {
       setCastMembers((castMembers) => [...castMembers, cast]);
       counter--;
@@ -39,7 +39,7 @@ const SearchResult = () => {
 
   const gotRecommendedData = (apiData) => {
     setRecommendedMovies([]);
-    let counter = 20;
+    let counter = 16;
     for (let movie of apiData.movies) {
       if (movie) {
         fetch(
