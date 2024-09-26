@@ -12,52 +12,102 @@ const Home = () => {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [currMovies, setCurrMovies] = useState([{}]);
 
+  // useEffect(() => {
+  //   setCurrMovies([]);
+  //   setSelectedGenres([]);
+  //   setHomeGenreList([]);
+  //   setList([]);
+
+  // fetch("/api/movies")
+  //   .then((Response) =>
+  //     Response.json().then((data) => setList(data.arr))
+  //   );
+
+  // getting the list of all genres
+  //   fetch(`https://api.themoviedb.org/3/genre/movie/list?${apiKey}`).then(
+  //     (Response) =>
+  //       Response.json().then((data) => setHomeGenreList(data.genres))
+  //   );
+  // }, []);
+
   useEffect(() => {
-    setCurrMovies([]);
-    setSelectedGenres([]);
-    setHomeGenreList([]);
-    setList([]);
-    //getting the list of movies from our flask server for our searchbar
-    fetch("/api/movies")
-    .then((Response) =>
-      Response.json().then((data) => setList(data.arr))
-    );
-    // getting the list of all genres
-    fetch(`https://api.themoviedb.org/3/genre/movie/list?${apiKey}`).then(
-      (Response) =>
-        Response.json().then((data) => setHomeGenreList(data.genres))
-    );
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch("/api/movies");
+        if (!response.ok) {
+          throw   (`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        setList(data.arr);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+
+    const fetchGenres = async () => {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/genre/movie/list?${apiKey}`
+        );
+        const data = await response.json();
+        setHomeGenreList(data.genres);
+      } catch (error) {
+        console.error("Error fetching genres:", error);
+      }
+    };
+    fetchMovies();
+    fetchGenres();
   }, []);
 
   useEffect(() => {
-    setCurrMovies([]);
-    if (selectedGenres.length > 0) {
-      fetch(
-        `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&${apiKey}&release_date.lte=2019-12-12&with_genres=${encodeURI(
-          selectedGenres.join(",")
-        )}`
-      ).then((Response) =>
-        Response.json().then((data) => setCurrMovies(data.results))
-      );
-    }
+    const setMovies = async () => {
+      if (selectedGenres.length === 0) {
+        setCurrMovies([]);
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&${apiKey}&release_date.lte=2019-12-12&with_genres=${encodeURIComponent(
+            selectedGenres.join(",")
+          )}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setCurrMovies(data.results);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+
+    setMovies();
   }, [selectedGenres]);
 
   const onTagClick = (genreId) => {
-    let isPresent = false;
-    for (let id of selectedGenres) {
-      if (id === genreId) {
-        isPresent = true;
-        break;
-      }
-    }
-    if (isPresent) {
+    if (selectedGenres.includes(genreId)) {
       setSelectedGenres(selectedGenres.filter((item) => item !== genreId));
     } else {
       setSelectedGenres((selectedGenres) => [...selectedGenres, genreId]);
     }
+    // let isPresent = false;
+    // for (let id of selectedGenres) {
+    //   if (id === genreId) {
+    //     isPresent = true;
+    //     break;
+    //   }
+    // }
+    // if (isPresent) {
+    //   setSelectedGenres(selectedGenres.filter((item) => item !== genreId));
+    // } else {
+    //   setSelectedGenres((selectedGenres) => [...selectedGenres, genreId]);
+    // }
   };
   const renderMovies = () =>
-    currMovies.map((movie) => {
+    currMovies?.map((movie) => {
       if (movie) {
         return (
           <MovieCard key={movie.id + movie.original_title} movie={movie} />
@@ -93,7 +143,7 @@ const Home = () => {
           ))}
         </div>
       </div>
-      {/*Rendering selected genre movies */}
+
       <div className="container-fluid HomeMovies">
         <div className="container HomeMovieGrid">
           {currMovies.length > 0 ? renderMovies() : null}

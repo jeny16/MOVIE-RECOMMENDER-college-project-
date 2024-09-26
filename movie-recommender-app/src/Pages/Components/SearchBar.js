@@ -66,7 +66,7 @@ function SearchBar({ movies, placeholder }) {
       ) : null}
       {filteredMovies.length > 0 ? (
         <div className="searchList">
-          {filteredMovies.slice(0, 10).map((movie) => (
+          {filteredMovies.slice(0, 10)?.map((movie) => (
             <div
               className="searchItem"
               onClick={() => navigate(`/search/${movie}`)}

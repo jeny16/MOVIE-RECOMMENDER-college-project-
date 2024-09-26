@@ -6,7 +6,7 @@ import NavBar from "./Components/NavBar";
 import ReactPlayer from "react-player";
 import Footer from "./Components/Footer";
 
-const SearchResult = () => { 
+const SearchResult = () => {
   const params = useParams();
   const apiKey = "api_key=b97316ed479ee4226afefc88d1792909";
   const inputValue = params.id; // retrieving the searched movie name
@@ -17,16 +17,23 @@ const SearchResult = () => {
   const [currGenre, setCurrGenre] = useState([{}]);
   const [videoData, setVideoData] = useState([]);
   const [playTrailer, setPlayTrailer] = useState(0);
-  const gotCast = (castData) => {
-    setCastMembers([]);
 
-    let counter = 6;
-    for (let cast of castData) {
-      setCastMembers((castMembers) => [...castMembers, cast]);
-      counter--;
-      if (counter === 0) break;
-    }
+  const gotCast = (castData) => {
+    setCastMembers(castData.slice(0, 4));
   };
+
+  // const gotCast = (castData) => {
+  //   setCastMembers([]);
+
+  //   let counter = 4;
+  //   for (let cast of castData) {
+  //     setCastMembers((castMembers) => [...castMembers, cast]);
+  //     counter--;
+  //     if (counter === 0) break;
+  //   }
+
+  // };
+
   const gotVideo = (data) => {
     if (data.videos && data.videos.results) {
       const trailer = data.videos.results.find(
@@ -39,13 +46,19 @@ const SearchResult = () => {
 
   const gotRecommendedData = (apiData) => {
     setRecommendedMovies([]);
-    let counter = 16;
-    for (let movie of apiData.movies) {
+
+    const moviesToFetch = apiData.movies.slice(0, 16);
+
+    moviesToFetch?.forEach((movie) => {
       if (movie) {
-        fetch(
-          `https://api.themoviedb.org/3/search/movie?${apiKey}&query=${movie}`
-        ).then((Response) =>
-          Response.json().then((data) => {
+        fetch(`https://api.themoviedb.org/3/search/movie?${apiKey}&query=${movie}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
             if (data.results && data.results[0]) {
               setRecommendedMovies((recommendedMovies) => [
                 ...recommendedMovies,
@@ -55,12 +68,38 @@ const SearchResult = () => {
               console.log(`No results for ${movie}`);
             }
           })
-        );
-        counter--;
-        if (counter === 0) break;
+          .catch((error) => {
+            console.error('Error fetching movie:', error); // Handle fetch errors
+          });
       }
-    }
-  };
+    });
+  }
+
+
+
+
+  //   let counter = 16;
+  //   for (let movie of apiData.movies) {
+  //     if (movie) {
+  //       fetch(
+  //         `https://api.themoviedb.org/3/search/movie?${apiKey}&query=${movie}`
+  //       ).then((Response) =>
+  //         Response.json().then((data) => {
+  //           if (data.results && data.results[0]) {
+  //             setRecommendedMovies((recommendedMovies) => [
+  //               ...recommendedMovies,
+  //               data.results[0],
+  //             ]);
+  //           } else {
+  //             console.log(`No results for ${movie}`);
+  //           }
+  //         })
+  //       );
+  //       counter--;
+  //       if (counter === 0) break;
+  //     }
+  //   }
+  // };
 
   useEffect(
     () => {
@@ -121,7 +160,7 @@ const SearchResult = () => {
     );
   };
   const displayGenre = () =>
-    currGenre.map((movieId, ind) => {
+    currGenre?.map((movieId, ind) => {
       if (ind >= 3) return null;
       if (movieId) {
         for (let obj of genreList) {
